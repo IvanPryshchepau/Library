@@ -8,7 +8,7 @@ import by.tr.library.dao.exception.DAOException;
 public class SQLCommonDao implements CommonDao {
 
 	@Override
-	public boolean aothorization(String login, String password) throws DAOException {
+	public boolean authorization(String login, String password) throws DAOException {
 
 		try {
 			int x = 0;

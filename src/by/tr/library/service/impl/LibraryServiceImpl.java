@@ -25,21 +25,41 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean addBook(String titile, String author) throws ServiceException {
-		//validation
-		
-		Book book = new Book();// Book(title, author)
-		
+	public boolean addBook(String title, int price) throws ServiceException {
+
+		Book book = new Book();
+		book.setTitle(title);
+		book.setPrice(price);
+
 		DAOFactory factory = DAOFactory.getInstance();
-		AdminDao adminDAo = factory.getAdminDao();
+		AdminDao adminDao = factory.getAdminDao();
 		
 		// call method check
 		try {
-			adminDAo.addNewBook(book);
+			adminDao.addBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 		
+		return false;
+	}
+
+	@Override
+	public boolean deleteBook(String title, int price) throws ServiceException {
+		Book book = new Book();// Book(title, author)
+		book.setTitle(title);
+		book.setPrice(price);
+
+		DAOFactory factory = DAOFactory.getInstance();
+		AdminDao adminDao = factory.getAdminDao();
+
+		// call method check
+		try {
+			adminDao.deleteBook(book);
+		} catch (DAOException e) {
+			throw new ServiceException("service message", e);
+		}
+
 		return false;
 	}
 

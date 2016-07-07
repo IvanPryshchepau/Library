@@ -12,24 +12,31 @@ public class Response {
 	public String getMessage() {
 		return message;
 	}
+
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 	public List<Book> getListBook() {
 		return listBook;
 	}
+
 	public void setListBook(List<Book> listBook) {
 		this.listBook = listBook;
 	}
+
 	public Book getBook() {
 		return book;
 	}
+
 	public void setBook(Book book) {
 		this.book = book;
 	}
+
 	public String getErrorMessage() {
 		return errorMessage;
 	}
+
 	public void setErrorMessage(String errorMessage) {
 		this.errorMessage = errorMessage;
 	}

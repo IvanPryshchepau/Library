@@ -19,16 +19,22 @@ public class AuthorizationCommand implements Command{
 /////////////////////////
 		ServiceFactory factory = ServiceFactory.getInstance();
 		ClientService service = factory.getClientService();
-		
-/////////////////////////		
+
+/////////////////////////
+		boolean result;
 		try {
-			boolean result = service.logination(login, password);
+			result = service.logination(login, password);
 		} catch (ServiceException e) {
 			throw new CommandException("command message", e);
 		}
 		Response response = new Response();
-		response.setErrorMessage(null);
-		response.setMessage("Logination is OK");
+		if (result) {
+			response.setErrorMessage(null);
+			response.setMessage("Logination is OK");
+		} else {
+			response.setErrorMessage("Logination failed");
+			response.setMessage(null);
+		}
 		
 		return response;
 	}

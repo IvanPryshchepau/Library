@@ -5,16 +5,18 @@ public class Request {
 	private String login;
 	private String password;
 	private String title;
-	
+	private int price;
+
+
 	public Request(){
 		
 	}
-	
-	public Request(String login, String password, String title) {
+
+	//
+	public Request(String login, String password) {
 		super();
 		this.login = login;
 		this.password = password;
-		this.title = title;
 	}
 
 	public String getLogin() {
@@ -48,8 +50,12 @@ public class Request {
 	public void setCommandName(String commandName) {
 		this.commandName = commandName;
 	}
-	
-	
-	
-	
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
 }

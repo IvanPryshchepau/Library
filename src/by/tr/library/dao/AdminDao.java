@@ -4,6 +4,10 @@ import by.tr.library.bean.Book;
 import by.tr.library.dao.exception.DAOException;
 
 public interface AdminDao {
-	boolean blockUser(int idUser)throws DAOException;
-	boolean addNewBook(Book book)throws DAOException;
+	boolean blockUser(String login) throws DAOException;
+
+	boolean addBook(Book book) throws DAOException;
+
+	boolean deleteBook(Book book) throws DAOException;
+
 }

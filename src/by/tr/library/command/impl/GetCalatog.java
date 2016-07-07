@@ -15,12 +15,10 @@ public class GetCalatog implements Command{
 
 	@Override
 	public Response execute(Request request) throws CommandException {
-		// TODO Auto-generated method stub
-		
+
 		ServiceFactory factory = ServiceFactory.getInstance();
 		LibraryService service = factory.getLibraryService();
-		
-		
+
 		List<Book> books;
 		try {
 			books = service.getCatalog();
