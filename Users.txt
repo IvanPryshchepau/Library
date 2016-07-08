@@ -1,0 +1,2 @@
+user='mylog', password='mypass', status='admin'
+user='mylogin', password='mypassword', status='admin'

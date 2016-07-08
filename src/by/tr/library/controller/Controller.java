@@ -23,8 +23,6 @@ public class Controller {
 			response.setErrorMessage("error message");
 		}
 		return response;
-		
-		
 	}
 
 }

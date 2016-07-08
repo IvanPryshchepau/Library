@@ -32,7 +32,14 @@ public class ProgrammerBook extends Book {
 	public void setLanguage(String language) {
 		this.language = language;
 	}
-	
-	
 
+	@Override
+	public String toString() {
+		return "ProgrammerBook{" +
+				"title='" + this.getTitle() + '\'' +
+				", price=" + this.getPrice() + '\'' +
+				", level='" + level + '\'' +
+				", language='" + language + '\'' +
+				'}';
+	}
 }
