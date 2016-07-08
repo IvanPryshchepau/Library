@@ -28,7 +28,7 @@ public class SQLCommonDao implements CommonDao {
 			}
 
 			for (String[] field : lines) {
-				if (login.equals(field[1]) && password.equals(field[2])){
+				if (login.equals(field[1]) && password.equals(field[2]) && !field[3].equals("blocked")){
 					return true;
 				}
 			}

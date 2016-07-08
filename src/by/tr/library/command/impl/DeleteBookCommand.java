@@ -32,9 +32,9 @@ public class DeleteBookCommand implements Command {
         Response response = new Response();
         if (result) {
             response.setErrorMessage(null);
-            response.setMessage("Addition is OK");
+            response.setMessage("Removing is OK");
         } else {
-            response.setErrorMessage("Addition failed");
+            response.setErrorMessage("Removing failed");
             response.setMessage(null);
         }
 

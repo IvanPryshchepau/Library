@@ -42,14 +42,40 @@ public class SQLAdminDao implements AdminDao {
 	}
 
 	@Override
-	public boolean addBook(Book book) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addBook(Book book) throws DAOException {
+		try (BufferedWriter writer = new BufferedWriter(new FileWriter("Library.txt", true))){
+
+			writer.append(book.toString() + System.getProperty("line.separator"));
+			return true;
+
+		} catch (IOException e) {
+			throw new DAOException("DAO message", e);
+		}
 	}
 
 	@Override
 	public boolean deleteBook(Book book) throws DAOException {
-		return false;
+		File file = new File("Library.txt");
+		File tempFile = new File("LibraryTemp.txt");
+		boolean status = false;
+		try (BufferedReader reader = new BufferedReader(new FileReader(file));
+			 BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))) {
+			String currentLine;
+			String lineToRemove = book.toString();
+
+			while((currentLine = reader.readLine()) != null) {
+				String trimmedLine = currentLine.trim();
+				if(trimmedLine.equals(lineToRemove)) {
+					status = true;
+					continue;
+				}
+				writer.write(currentLine + System.getProperty("line.separator"));
+			}
+			tempFile.renameTo(file);
+		} catch (IOException e) {
+			throw new DAOException("DAO message", e);
+		}
+		return status;
 	}
 
 }

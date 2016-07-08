@@ -12,5 +12,11 @@ public interface LibraryService {
 	boolean addBook(String title, int price) throws ServiceException;
 
 	boolean deleteBook(String title, int price) throws ServiceException;
-	List<Book> getCatalog()throws ServiceException ;
+
+	List<Book> getCatalog() throws ServiceException ;
+
+	boolean takingBook(String title) throws ServiceException;
+
+	boolean returnBook(String title) throws ServiceException;
+
 }

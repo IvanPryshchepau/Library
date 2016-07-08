@@ -20,13 +20,13 @@ public class SQLUserDao implements UserDao{
 	}
 
 	@Override
-	public Book takeBook(String title) throws DAOException {
-		return null;
+	public boolean takeBook(String title) throws DAOException {
+		return false;
 	}
 
 	@Override
-	public Book returnBook(String title) throws DAOException {
-		return null;
+	public boolean returnBook(String title) throws DAOException {
+		return false;
 	}
 
 	@Override

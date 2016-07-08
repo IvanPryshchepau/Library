@@ -1,2 +1,2 @@
-user='mylog', password='mypass', status='admin'
+user='mylog', password='mypass', status='blocked'
 user='mylogin', password='mypassword', status='admin'

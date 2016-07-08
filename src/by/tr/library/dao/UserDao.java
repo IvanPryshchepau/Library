@@ -12,7 +12,7 @@ public interface UserDao {
 
 	boolean registerUser(String login, String password) throws DAOException;
 
-	Book takeBook(String title) throws DAOException;
+	boolean takeBook(String title) throws DAOException;
 
-	Book returnBook(String title) throws DAOException;
+	boolean returnBook(String title) throws DAOException;
 }

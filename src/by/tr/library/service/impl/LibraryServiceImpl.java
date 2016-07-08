@@ -30,37 +30,35 @@ public class LibraryServiceImpl implements LibraryService{
 		Book book = new Book();
 		book.setTitle(title);
 		book.setPrice(price);
+		book.setAvailable(null);
 
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 		
 		// call method check
 		try {
-			adminDao.addBook(book);
+			return adminDao.addBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
-		
-		return false;
 	}
 
 	@Override
 	public boolean deleteBook(String title, int price) throws ServiceException {
-		Book book = new Book();// Book(title, author)
+		Book book = new Book();
 		book.setTitle(title);
 		book.setPrice(price);
+		book.setAvailable(null);
 
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 
 		// call method check
 		try {
-			adminDao.deleteBook(book);
+			return adminDao.deleteBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
-
-		return false;
 	}
 
 	@Override
@@ -77,6 +75,33 @@ public class LibraryServiceImpl implements LibraryService{
 		}
 		
 		return listBook;
+	}
+
+	@Override
+	public boolean takingBook(String title) throws ServiceException {
+
+		DAOFactory factory = DAOFactory.getInstance();
+		UserDao userDao = factory.getUserDao();
+
+		// call method check
+		try {
+			return userDao.takeBook(title);
+		} catch (DAOException e) {
+			throw new ServiceException("service message", e);
+		}
+	}
+
+	@Override
+	public boolean returnBook(String title) throws ServiceException {
+		DAOFactory factory = DAOFactory.getInstance();
+		UserDao userDao = factory.getUserDao();
+
+		// call method check
+		try {
+			return userDao.returnBook(title);
+		} catch (DAOException e) {
+			throw new ServiceException("service message", e);
+		}
 	}
 
 }

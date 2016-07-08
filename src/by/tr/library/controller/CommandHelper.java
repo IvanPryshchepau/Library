@@ -12,7 +12,7 @@ public class CommandHelper {
 	
 	public CommandHelper(){
 		commands.put(CommandName.AUTHORIZATION_COMMAND, new AuthorizationCommand());
-		commands.put(CommandName.GET_CATALOG, new GetCalatog());
+		commands.put(CommandName.GET_CATALOG, new GetCatalog());
 		commands.put(CommandName.ADD_BOOK_COMMAND, new AddBookCommand());
 		commands.put(CommandName.DELETE_BOOK_COMMAND, new DeleteBookCommand());
 		commands.put(CommandName.REGISTER_USER, new RegisterUser());

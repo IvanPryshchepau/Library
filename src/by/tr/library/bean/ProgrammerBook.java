@@ -5,13 +5,13 @@ public class ProgrammerBook extends Book {
 	private String language;
 	
 	public ProgrammerBook(){
-		super("no title", 0);//new Book("",0);
+		super("no title", 0, null);//new Book("",0);
 		level="no";
 		language = "";
 	}
 	
-	public ProgrammerBook(String title, int price, String level, String language){
-		super(title, price);
+	public ProgrammerBook(String title, int price, String available, String level, String language){
+		super(title, price, available);
 		this.level = level;
 		this.language = language;
 		
