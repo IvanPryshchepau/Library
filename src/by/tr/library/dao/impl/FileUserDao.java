@@ -76,7 +76,7 @@ public class FileUserDao implements UserDao {
             boolean status = false;
             while((currentLine = reader.readLine()) != null) {
                 book.expand(currentLine);
-                if (title.equals(book.getTitle())){
+                if (title.equals(book.getTitle()) && !book.getAvailable().equals("taken")){
                     book.setAvailable("taken");
                     writer.write(book.toString() + System.getProperty("line.separator"));
                     status = true;

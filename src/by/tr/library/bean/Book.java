@@ -8,6 +8,7 @@ public class Book {
 	public Book(){
 		this.title = "";
 		this.price = 0;
+		this.available = null;
 	}
 
 	

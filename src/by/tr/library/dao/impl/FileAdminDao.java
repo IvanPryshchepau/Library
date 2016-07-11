@@ -31,7 +31,7 @@ public class FileAdminDao implements AdminDao {
             boolean status = false;
             BufferedWriter writer = new BufferedWriter(new FileWriter("Users.txt"));
             for (String[] field : lines) {
-                if (login.equals(field[1])) {
+                if (login.equals(field[1]) && !field[3].equals("blocked")) {
                     field[3] = "blocked";
                     status = true;
                 }
