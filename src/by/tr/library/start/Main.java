@@ -11,8 +11,8 @@ public class Main {
 		
 		
 		Request request = new Request();
-		request.setCommandName("RETURN_BOOK");
-		request.setLogin("mylog");
+		request.setCommandName("AUTHORIZATION_COMMAND");
+		request.setLogin("mylogin");
 		request.setPassword("mypassword");
 		request.setTitle("War and Peace");
 		request.setPrice(1000);

@@ -2,6 +2,8 @@ package by.tr.library.dao.impl;
 
 import by.tr.library.dao.CommonDao;
 import by.tr.library.dao.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,6 +15,8 @@ import java.util.List;
  * Created by ivanpryshchepau on 7/8/16.
  */
 public class FileCommonDao implements CommonDao{
+
+    private static final Logger LOG = LogManager.getRootLogger();
 
     @Override
     public boolean authorization(String login, String password) throws DAOException {
@@ -32,7 +36,10 @@ public class FileCommonDao implements CommonDao{
                 }
             }
 
+            LOG.error("User not found or blocked(Authorization)");
+
         } catch (IOException e) {
+            LOG.error("Authorization error DAO IOException");
             throw new DAOException("DAO message", e);
         }
         return false;

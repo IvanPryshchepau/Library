@@ -3,6 +3,8 @@ package by.tr.library.dao.impl;
 import by.tr.library.bean.Book;
 import by.tr.library.dao.AdminDao;
 import by.tr.library.dao.exception.DAOException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
  * Created by ivanpryshchepau on 7/8/16.
  */
 public class FileAdminDao implements AdminDao {
+
+    private static final Logger LOG = LogManager.getRootLogger();
 
     @Override
     public boolean blockUser(String login) throws DAOException {
@@ -37,8 +41,12 @@ public class FileAdminDao implements AdminDao {
 
             writer.flush();
 
+            if (!status){
+                LOG.error("User not found(Block user)");
+            }
             return status;
         } catch (IOException e) {
+            LOG.error("Block user error DAO IOException");
             throw new DAOException("DAO message", e);
         }
 
@@ -52,6 +60,7 @@ public class FileAdminDao implements AdminDao {
             return true;
 
         } catch (IOException e) {
+            LOG.error("Add book error DAO IOException");
             throw new DAOException("DAO message", e);
         }
     }
@@ -75,7 +84,11 @@ public class FileAdminDao implements AdminDao {
                 writer.write(currentLine + System.getProperty("line.separator"));
             }
             tempFile.renameTo(file);
+            if (!status){
+                LOG.error("Book not found(Delete book)");
+            }
         } catch (IOException e) {
+            LOG.error("Delete book error DAO IOException");
             throw new DAOException("DAO message", e);
         }
         return status;
