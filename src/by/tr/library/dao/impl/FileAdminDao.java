@@ -7,8 +7,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by ivanpryshchepau on 7/8/16.
@@ -19,27 +17,26 @@ public class FileAdminDao implements AdminDao {
 
     @Override
     public boolean blockUser(String login) throws DAOException {
-        try (BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))){
+        File file = new File("Users.txt");
+        File tempFile = new File("UsersTemp.txt");
+        try (BufferedReader reader = new BufferedReader(new FileReader(file));
+             BufferedWriter writer = new BufferedWriter(new FileWriter(tempFile))){
 
             String line;
-            List<String[]> lines = new ArrayList<String[]>();
+            boolean status = false;
             while ((line = reader.readLine()) != null) {
                 String[] result = line.split("((^user)=')|(', (password|status)=')|('$)");
-                lines.add(result);
-            }
-
-            boolean status = false;
-            BufferedWriter writer = new BufferedWriter(new FileWriter("Users.txt"));
-            for (String[] field : lines) {
-                if (login.equals(field[1]) && !field[3].equals("blocked")) {
-                    field[3] = "blocked";
+                if (login.equals(result[1]) && result[3].equals("user")) {
+                    result[3] = "blocked";
+                    writer.write("user='" + result[1] + "', password='" + result[2] + "', status='" +
+                            result[3] + "'" + System.getProperty("line.separator"));
                     status = true;
+                    continue;
                 }
-                writer.write("user='" + field[1] + "', password='" + field[2] + "', status='" + field[3] + "'");
-                writer.append('\n');
+                writer.write(line + System.getProperty("line.separator"));
             }
 
-            writer.flush();
+            tempFile.renameTo(file);
 
             if (!status){
                 LOG.error("User not found(Block user)");
