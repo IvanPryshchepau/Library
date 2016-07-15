@@ -19,17 +19,14 @@ public class DAOFactory {
 
 	public CommonDao getCommonDao() {
 		return commonDao;
-
 	}
 
 	public UserDao getUserDao() {
-
 		return userDao;
 	}
 
 	public AdminDao getAdminDao() {
 		return adminDao;
-
 	}
 
 }
