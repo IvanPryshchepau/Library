@@ -16,7 +16,7 @@ public class FileAdminDao implements AdminDao {
     private static final Logger LOG = LogManager.getRootLogger();
 
     @Override
-    public boolean blockUser(String login) throws DAOException {
+    public void blockUser(String login) throws DAOException {
         File file = new File("Users.txt");
         File tempFile = new File("UsersTemp.txt");
         try (BufferedReader reader = new BufferedReader(new FileReader(file));
@@ -41,7 +41,6 @@ public class FileAdminDao implements AdminDao {
             if (!status){
                 LOG.error("User not found(Block user)");
             }
-            return status;
         } catch (IOException e) {
             LOG.error("Block user error DAO IOException");
             throw new DAOException("DAO message", e);
@@ -50,11 +49,10 @@ public class FileAdminDao implements AdminDao {
     }
 
     @Override
-    public boolean addBook(Book book) throws DAOException {
+    public void addBook(Book book) throws DAOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Library.txt", true))){
 
             writer.append(book.toString() + System.getProperty("line.separator"));
-            return true;
 
         } catch (IOException e) {
             LOG.error("Add book error DAO IOException");
@@ -63,7 +61,7 @@ public class FileAdminDao implements AdminDao {
     }
 
     @Override
-    public boolean deleteBook(Book book) throws DAOException {
+    public void deleteBook(Book book) throws DAOException {
         File file = new File("Library.txt");
         File tempFile = new File("LibraryTemp.txt");
         boolean status = false;
@@ -88,7 +86,6 @@ public class FileAdminDao implements AdminDao {
             LOG.error("Delete book error DAO IOException");
             throw new DAOException("DAO message", e);
         }
-        return status;
     }
 
 }

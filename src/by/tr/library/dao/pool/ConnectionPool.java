@@ -68,9 +68,9 @@ public class ConnectionPool {
     }
 
     public Connection takeConnection() throws ConnectionPoolException {
-        Connection connection;
+        PooledConnection connection;
         try {
-            connection = connectionQueue.take();
+            connection = (PooledConnection) connectionQueue.take();
             givenAwayConQueue.put(connection);
         } catch (InterruptedException e) {
             throw new ConnectionPoolException("Error connecting to the data source", e);
@@ -105,7 +105,7 @@ public class ConnectionPool {
         }
     }
 
-    private class PooledConnection implements Connection {
+    public class PooledConnection implements Connection {
 
         private Connection connection;
 

@@ -40,7 +40,7 @@ public class FileUserDao implements UserDao {
     }
 
     @Override
-    public boolean registerUser(String login, String password) throws DAOException {
+    public void registerUser(String login, String password) throws DAOException {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("Users.txt", true));
              BufferedReader reader = new BufferedReader(new FileReader("Users.txt"))){
 
@@ -49,13 +49,11 @@ public class FileUserDao implements UserDao {
                 String[] result = line.split("((^user)=')|(', (password|status)=')|('$)");
                 if (login.equals(result[1])){
                     LOG.error("Login is busy(Registration)");
-                    return false;
                 }
             }
 
             writer.append("user='" + login + "', password='" + password +
                     "', status='user'" + System.getProperty("line.separator"));
-            return true;
 
         } catch (IOException e) {
             LOG.error("Register error DAO IOException");
@@ -64,7 +62,7 @@ public class FileUserDao implements UserDao {
     }
 
     @Override
-    public boolean takeBook(String title) throws DAOException {
+    public void takeBook(String title) throws DAOException {
 
         Book book = new Book();
         File file = new File("Library.txt");
@@ -88,7 +86,6 @@ public class FileUserDao implements UserDao {
             if (!status){
                 LOG.error("Book not found(Taking book)");
             }
-            return status;
         } catch (IOException e) {
             LOG.error("Taking book error DAO IOException");
             throw new DAOException("DAO message", e);
@@ -97,7 +94,7 @@ public class FileUserDao implements UserDao {
     }
 
     @Override
-    public boolean returnBook(String title) throws DAOException {
+    public void returnBook(String title) throws DAOException {
         Book book = new Book();
         File file = new File("Library.txt");
         File tempFile = new File("LibraryTemp.txt");
@@ -119,7 +116,6 @@ public class FileUserDao implements UserDao {
             if (!status){
                 LOG.error("Book not found(Return book)");
             }
-            return status;
         } catch (IOException e) {
             LOG.error("Return book error DAO IOException");
             throw new DAOException("DAO message", e);
