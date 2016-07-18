@@ -16,8 +16,7 @@ public class ClientServiceImpl implements ClientService{
 		if (login == null || login.isEmpty()){
 			return false;
 		}
-		
-		
+
 		DAOFactory factory = DAOFactory.getInstance();
 		CommonDao commonDao = factory.getCommonDao();
 		
@@ -32,40 +31,31 @@ public class ClientServiceImpl implements ClientService{
 	}
 
 	@Override
-	public boolean blockUser(String login) throws ServiceException {
-		if (login == null || login.isEmpty()) {
-			return false;
-		}
+	public void blockUser(String login) throws ServiceException {
 
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 
-		boolean result;
 		try {
-			result = adminDao.blockUser(login);
+			adminDao.blockUser(login);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 
-		return result;
 	}
 
 	@Override
-	public boolean registerUser(String login, String password) throws ServiceException {
-		if (login == null || login.isEmpty()) {
-			return false;
-		}
+	public void registerUser(String login, String password) throws ServiceException {
+
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
 
-		boolean result;
 		try {
-			result = userDao.registerUser(login, password);
+			userDao.registerUser(login, password);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 
-		return result;
 	}
 
 }

@@ -20,20 +20,15 @@ public class RegisterUser implements Command {
 		ClientService service = factory.getClientService();
 
 /////////////////////////
-		boolean result;
+		Response response = new Response();
 		try {
-			result = service.registerUser(login, password);
+			service.registerUser(login, password);
+			response.setErrorMessage(null);
+			response.setMessage("Registration is OK");
 		} catch (ServiceException e) {
 			throw new CommandException("command message", e);
 		}
-		Response response = new Response();
-		if (result) {
-			response.setErrorMessage(null);
-			response.setMessage("Registration is OK");
-		} else {
-			response.setErrorMessage("Registration failed");
-			response.setMessage(null);
-		}
+
 
 		return response;
 	}

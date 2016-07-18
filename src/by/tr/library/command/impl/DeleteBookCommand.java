@@ -22,22 +22,14 @@ public class DeleteBookCommand implements Command {
         LibraryService service = factory.getLibraryService();
 
 /////////////////////////
-        boolean result;
+        Response response = new Response();
         try {
-            result = service.deleteBook(title, price);
+            service.deleteBook(title, price);
+            response.setErrorMessage(null);
+            response.setMessage("Removing is OK");
         } catch (ServiceException e) {
             throw new CommandException("command message", e);
         }
-
-        Response response = new Response();
-        if (result) {
-            response.setErrorMessage(null);
-            response.setMessage("Removing is OK");
-        } else {
-            response.setErrorMessage("Removing failed");
-            response.setMessage(null);
-        }
-
 
         return response;
     }

@@ -20,22 +20,14 @@ public class AddBookCommand implements Command {
 		LibraryService service = factory.getLibraryService();
 
 /////////////////////////
-		boolean result;
+		Response response = new Response();
 		try {
-			result = service.addBook(title, price);
+			service.addBook(title, price);
+			response.setErrorMessage(null);
+			response.setMessage("Addition is OK");
 		} catch (ServiceException e) {
 			throw new CommandException("command message", e);
 		}
-
-		Response response = new Response();
-		if (result) {
-			response.setErrorMessage(null);
-			response.setMessage("Addition is OK");
-		} else {
-			response.setErrorMessage("Addition failed");
-			response.setMessage(null);
-		}
-
 
 		return response;
 	}

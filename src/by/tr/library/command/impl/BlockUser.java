@@ -21,20 +21,16 @@ public class BlockUser implements Command {
         ClientService service = factory.getClientService();
 
 /////////////////////////
-        boolean result;
+        Response response = new Response();
         try {
-            result = service.blockUser(login);
+            service.blockUser(login);
+            response.setErrorMessage(null);
+            response.setMessage("Blocking is OK");
         } catch (ServiceException e) {
             throw new CommandException("command message", e);
         }
-        Response response = new Response();
-        if (result) {
-            response.setErrorMessage(null);
-            response.setMessage("Blocking is OK");
-        } else {
-            response.setErrorMessage("Blocking failed");
-            response.setMessage(null);
-        }
+
+
 
         return response;
     }

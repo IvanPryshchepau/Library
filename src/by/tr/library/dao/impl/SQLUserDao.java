@@ -25,9 +25,9 @@ public class SQLUserDao implements UserDao{
 			ResultSet rs = s.executeQuery("SELECT * FROM books");
 			while (rs.next()){
 				Book book = new Book();
-				book.setTitle(rs.getString(1));
-				book.setPrice(rs.getInt(2));
-				book.setAvailable(rs.getString(3));
+				book.setTitle(rs.getString(2));
+				book.setPrice(rs.getInt(3));
+				book.setAvailable(rs.getString(4));
 				list.add(book);
 			}
 			ConnectionPool.connectionPool.returnConnection(connection);
@@ -42,13 +42,15 @@ public class SQLUserDao implements UserDao{
 	@Override
 	public void registerUser(String login, String password) throws DAOException {
 
-		String sql = "INSERT INTO connpool.users(login, password, status) VALUES(?,?,user)";
+		String sql = "INSERT INTO library.users(login, password, status) VALUES(?,?,?)";
+		String status = "user";
 		try {
 			ConnectionPool.PooledConnection connection =
 					(ConnectionPool.PooledConnection) ConnectionPool.connectionPool.takeConnection();
 			PreparedStatement preparedStatement = connection.prepareStatement(sql);
 			preparedStatement.setString(1, login);
 			preparedStatement.setString(2, password);
+			preparedStatement.setString(3, status);
 			preparedStatement.executeUpdate();
 			ConnectionPool.connectionPool.returnConnection(connection);
 		} catch (ConnectionPoolException e) {
@@ -72,7 +74,7 @@ public class SQLUserDao implements UserDao{
 
 	private void editBookTable(String title, String set) throws DAOException {
 		try {
-			String sql = "UPDATE connpool.books SET available=? WHERE title=?";
+			String sql = "UPDATE library.books SET available=? WHERE title=?";
 			ConnectionPool.PooledConnection connection =
 					(ConnectionPool.PooledConnection) ConnectionPool.connectionPool.takeConnection();
 			PreparedStatement ps = connection.prepareStatement(sql);

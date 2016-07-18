@@ -25,37 +25,37 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean addBook(String title, int price) throws ServiceException {
+	public void addBook(String title, int price) throws ServiceException {
 
 		Book book = new Book();
 		book.setTitle(title);
 		book.setPrice(price);
-		book.setAvailable(null);
+		book.setAvailable("");
 
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 		
 		// call method check
 		try {
-			return adminDao.addBook(book);
+			adminDao.addBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 	}
 
 	@Override
-	public boolean deleteBook(String title, int price) throws ServiceException {
+	public void deleteBook(String title, int price) throws ServiceException {
 		Book book = new Book();
 		book.setTitle(title);
 		book.setPrice(price);
-		book.setAvailable(null);
+		book.setAvailable("");
 
 		DAOFactory factory = DAOFactory.getInstance();
 		AdminDao adminDao = factory.getAdminDao();
 
 		// call method check
 		try {
-			return adminDao.deleteBook(book);
+			adminDao.deleteBook(book);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
@@ -78,27 +78,27 @@ public class LibraryServiceImpl implements LibraryService{
 	}
 
 	@Override
-	public boolean takingBook(String title) throws ServiceException {
+	public void takingBook(String title) throws ServiceException {
 
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
 
 		// call method check
 		try {
-			return userDao.takeBook(title);
+			userDao.takeBook(title);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}
 	}
 
 	@Override
-	public boolean returnBook(String title) throws ServiceException {
+	public void returnBook(String title) throws ServiceException {
 		DAOFactory factory = DAOFactory.getInstance();
 		UserDao userDao = factory.getUserDao();
 
 		// call method check
 		try {
-			return userDao.returnBook(title);
+			userDao.returnBook(title);
 		} catch (DAOException e) {
 			throw new ServiceException("service message", e);
 		}

@@ -14,12 +14,15 @@ public class SQLAdminDao implements AdminDao {
 
 	@Override
 	public void blockUser(String login) throws DAOException {
+		String sql = "UPDATE library.users SET status=? WHERE login=?";
+		String status = "blocked";
 		try {
 			ConnectionPool.PooledConnection connection =
 					(ConnectionPool.PooledConnection) ConnectionPool.connectionPool.takeConnection();
-			Statement s = connection.createStatement();
-
-			s.executeUpdate("UPDATE connpool.users SET status=blocked WHERE login=" + login);
+			PreparedStatement ps = connection.prepareStatement(sql);
+			ps.setString(1, status);
+			ps.setString(2, login);
+			ps.executeUpdate();
 			ConnectionPool.connectionPool.returnConnection(connection);
 		} catch (ConnectionPoolException e) {
 			throw new DAOException("error taking connection");
@@ -30,17 +33,17 @@ public class SQLAdminDao implements AdminDao {
 
 	@Override
 	public void addBook(Book book) throws DAOException {
-		String sql = "INSERT INTO connpool.books(title, price, available) VALUES(?,?,?)";
+		String sql = "INSERT INTO library.books(title, price, available) VALUES(?,?,?)";
 		editBookTable(sql, book);
 	}
 
 	@Override
 	public void deleteBook(Book book) throws DAOException {
-		String sql = "DELETE FROM connpool.books WHERE(title=?,price=?,available=?)";
+		String sql = "DELETE FROM library.books WHERE title=? AND price=? AND available=?";
 		editBookTable(sql, book);
 	}
 
-	public void editBookTable(String sql, Book book) throws DAOException {
+	private void editBookTable(String sql, Book book) throws DAOException {
 		try {
 			ConnectionPool.PooledConnection connection =
 					(ConnectionPool.PooledConnection) ConnectionPool.connectionPool.takeConnection();

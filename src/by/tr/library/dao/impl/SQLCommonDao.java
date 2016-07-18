@@ -18,9 +18,10 @@ public class SQLCommonDao implements CommonDao {
                     (ConnectionPool.PooledConnection) ConnectionPool.connectionPool.takeConnection();
 			Statement s = connection.createStatement();
 			ResultSet rs = s.executeQuery("SELECT * FROM users");
+
 			while (rs.next()){
-				if (login.equals(rs.getString(1)) && password.equals(rs.getString(2)) &&
-						!rs.getString(3).equals("blocked")){
+				if (login.equals(rs.getString(2)) && password.equals(rs.getString(3)) &&
+						!rs.getString(4).equals("blocked")){
 					ConnectionPool.connectionPool.returnConnection(connection);
 					return true;
 				}

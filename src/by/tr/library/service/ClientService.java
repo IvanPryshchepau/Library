@@ -6,8 +6,8 @@ public interface ClientService {
 
        boolean logination(String login, String password) throws ServiceException ;
 
-       boolean blockUser(String login) throws ServiceException;
+       void blockUser(String login) throws ServiceException;
 
-       boolean registerUser(String login, String password) throws ServiceException;
+       void registerUser(String login, String password) throws ServiceException;
 
 }
